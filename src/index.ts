@@ -1,3 +1,5 @@
+import './css/main.css'
+
 
 const readFile = Blob.prototype.arrayBuffer || function(this: Blob) {
   return new Promise((resolve, reject) => {
