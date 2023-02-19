@@ -396,8 +396,12 @@ const toPDF = async (images: ImageData[]) => {
         }
       }, jpegData);
     });
+
     // US Letter width
-    const height = 792;
+    // US letter Mediabox [0 0 612 792]
+    // A4        Mediabox [0 0 595 842]
+    const height = 842; //792;   
+
     const width = height * img.width / img.height;
     const contents = object(() => {
       const result = `${width} 0 0 ${height} 0 0 cm /I Do`;
@@ -774,7 +778,8 @@ const perspective = ({ data, width, height }: ImageData, rect: Quad) => {
     Math.hypot(rect.b.x - rect.c.x, rect.b.y - rect.c.y)
   ) / 2);
   const newHeight = Math.min(trueHeight, 1584);
-  const newWidth = Math.floor(8.5 / 11 * newHeight) // Math.floor(trueWidth / trueHeight * newHeight);
+  //const newWidth = Math.floor(8.5 / 11 * newHeight) // US letter // Math.floor(trueWidth / trueHeight * newHeight);
+  const newWidth = Math.floor(210 / 297 * newHeight)  // A4
   const projector = createProjector({
     a: { x: 0, y: newHeight },
     b: { x: 0, y: 0 },
